@@ -12,27 +12,25 @@ services:
       - ./account_book:/account_book
 
     command: >
-      sh -c "python manage.py wait_for_db && 
-             python manage.py migrate &&
+      sh -c "python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
 
     environment:
       - DB_HOST=account_book_db
       - DB_NAME=account_book
-      - DB_USER=book_user
+      - DB_USER=root
       - DB_PASS=account
 
     depends_on:
-      - acount_book_db
+      - account_book_db
 
   account_book_db:
-    image: postgres:13-alpine
+    image: mysql:5.7
     volumes:
-      - stock-db-data:/var/lib/mysql
+      - account-book-db-data:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE=account_book
-      - MYSQL_USER=book_user
-      - MYSQL_ROOT_PASSWORD=account
+      MYSQL_DATABASE: account_book
+      MYSQL_ROOT_PASSWORD: account
 
 volumes:
-  stock-db-data:
+  account-book-db-data:
