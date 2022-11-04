@@ -30,7 +30,7 @@ class RecordViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
     
-    @action(methods=['PATCH'], detail=True, url_path='delete')
+    @action(methods=['GET'], detail=True, url_path='delete')
     def delete(self, request, pk=None):
         '''내역 임시 삭제 및 복구'''
         record = Record.objects.get(id=pk)

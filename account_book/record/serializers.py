@@ -7,9 +7,8 @@ class RecordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Record
-        fields = ['id', 'category', 'amount', 'is_deleted']
+        fields = ['id', 'category', 'amount']
         read_only_fields = ['id']
-        extra_kwargs = {'is_deleted': {'write_only': True}}
         
 
 class RecordDetailSerializer(RecordSerializer):

@@ -58,7 +58,7 @@ is_deleted = False 로 바뀌는 방식
 | 조회                  | GET       | api/v1/records                  |
 | 상세                  | GET       | api/v1/records/record_id        |
 | 업데이트              | PUT,PATCH | api/v1/records/record_id        |
-| 삭제                  | PATCH     | api/v1/records/record_id/delete |
+| 삭제                  | GET       | api/v1/records/record_id/delete |
 | 복구를 위한 삭제 내역 | GET       | api/v1/records/restore          |
 
 

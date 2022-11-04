@@ -157,7 +157,7 @@ class PrivateAPITest(TestCase):
         record = create_record(user=self.user)
         
         url = delete_url(record.id)
-        res = self.client.patch(url)
+        res = self.client.get(url)
         
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         record.refresh_from_db()
@@ -199,7 +199,7 @@ class PrivateAPITest(TestCase):
         record.save()
                 
         url = delete_url(record.id)
-        res = self.client.patch(url)
+        res = self.client.get(url)
         
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         record.refresh_from_db()
