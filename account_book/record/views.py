@@ -39,3 +39,10 @@ class RecordViewSet(viewsets.ModelViewSet):
         
         return Response(status=status.HTTP_200_OK)
     
+    @action(methods=['GET'], detail=False, url_path='restore')
+    def restore(self, request):
+        '''복구를 위한 삭제 내역 가져오기'''
+        queryset = self.queryset.filter(user=self.request.user).exclude(is_deleted=False)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+        
