@@ -1,5 +1,6 @@
-from rest_framework import generics, authentication, permissions
+from rest_framework import generics, permissions, status
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
@@ -19,3 +20,7 @@ class CreateTokenView(ObtainAuthToken):
     permission_classes = [permissions.AllowAny]
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
     
+class LogoutView(APIView):
+    def get(self, request, format=None):
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)
