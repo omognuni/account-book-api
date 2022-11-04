@@ -17,6 +17,9 @@ def detail_url(record_id):
 def delete_url(record_id):
     return reverse('record:record-delete', args=[record_id])
 
+def restore_url():
+    return reverse('record:record-restore')
+
 def create_record(user, **params):
     defaults = {
         'user': user,
@@ -156,6 +159,35 @@ class PrivateAPITest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         record.refresh_from_db()
         self.assertTrue(record.is_deleted)
+
+    def test_retrieve_without_deleted_record(self):
+        '''삭제한 내역 가져오지 않기'''
+        record = create_record(user=self.user, memo='Deleted', is_deleted=True)
+        create_record(user=self.user)
+        
+        res = self.client.get(RECORD_URL)
+        serializer = RecordSerializer(record)
+        
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertNotIn(serializer.data, res.data)
+        
+
+    def test_retrieve_deleted_records(self):
+        '''복구를 위한 삭제된 내역만 가져오기'''
+        create_record(user=self.user)
+        create_record(user=self.user)
+        
+        create_record(user=self.user, is_deleted=True)
+        create_record(user=self.user, is_deleted=True)
+        
+        url = restore_url()
+        res = self.client.get(url)
+        
+        records = Record.objects.filter(is_deleted=True)
+        serializer = RecordDetailSerializer(records, many=True)
+        
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data, serializer.data)
         
     def test_restore_record(self):
         '''임시 삭제 내역 복구 테스트'''
@@ -170,14 +202,5 @@ class PrivateAPITest(TestCase):
         record.refresh_from_db()
         self.assertFalse(record.is_deleted)
         
-    def test_retrieve_without_deleted_record(self):
-        '''삭제한 내역 가져오지 않기'''
-        record = create_record(user=self.user, memo='Deleted', is_deleted=True)
-        create_record(user=self.user)
-        
-        res = self.client.get(RECORD_URL)
-        serializer = RecordSerializer(record)
-        
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertNotIn(serializer.data, res.data)
+
         
