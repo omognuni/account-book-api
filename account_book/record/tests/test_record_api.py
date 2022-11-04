@@ -5,7 +5,7 @@ from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from book.serializers import RecordSerializer
+from record.serializers import RecordSerializer
 from core.models import Record
 
 
