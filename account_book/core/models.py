@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
 
 
     
-class Book(models.Model):
+class Record(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     amount = models.BigIntegerField(blank=True, default=0)
     memo = models.TextField(blank=True)

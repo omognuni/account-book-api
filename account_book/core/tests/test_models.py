@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
-from core.models import Book
+from core.models import Record
 
 
 def create_user(email='user@example.com', password='testpass123'):
@@ -57,9 +57,9 @@ class ModelTest(TestCase):
         user = create_user()
         amount = 10000
         memo = 'test memo'
-        book = Book.objects.create(user=user, amount=amount, memo=memo)
+        record = Record.objects.create(user=user, amount=amount, memo=memo)
         
-        self.assertEqual(book.user, user)
-        self.assertEqual(book.amount, amount)
+        self.assertEqual(record.user, user)
+        self.assertEqual(record.amount, amount)
         
         
