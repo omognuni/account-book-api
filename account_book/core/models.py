@@ -7,11 +7,14 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
     
 class Record(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    category = models.CharField(max_length=255, blank=True)
     amount = models.BigIntegerField(blank=True, default=0)
     memo = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     is_deleted = models.BooleanField(default=False, blank=True)
-    
 
+    
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         '''유저 생성'''
