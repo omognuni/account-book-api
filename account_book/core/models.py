@@ -9,7 +9,7 @@ class Record(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     amount = models.BigIntegerField(blank=True, default=0)
     memo = models.TextField(blank=True)
-    is_deleted = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False, blank=True)
     
 
 class UserManager(BaseUserManager):
