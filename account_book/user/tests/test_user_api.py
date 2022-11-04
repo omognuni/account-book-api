@@ -8,6 +8,7 @@ from django.urls import reverse
 
 CREATE_USER_URL = reverse('user:create')
 TOKEN_URL = reverse('user:token')
+LOGOUT_URL = reverse('user:logout')
 
 
 def create_user(**params):
@@ -82,3 +83,24 @@ class PublicAPITest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
     
     
+
+class PrivateAPITest(TestCase):
+    '''로그인 사용자 API 테스트'''
+    def setUp(self):
+        user = {
+            'email': 'test@gmail.com',
+            'password': 'testpass',
+        }
+        self.user = create_user(**user)
+        self.client = APIClient()
+
+        res = self.client.post(TOKEN_URL, user)
+        
+        self.client.force_authenticate(user=self.user, token=self.user.auth_token)
+        
+    def test_logout_delete_token(self):
+        '''로그아웃 시 토큰 삭제'''
+        res = self.client.get(LOGOUT_URL)
+        self.user.refresh_from_db()
+        
+        self.assertFalse(hasattr(self.user, 'auth_token'))
