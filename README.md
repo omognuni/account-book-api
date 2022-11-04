@@ -25,11 +25,11 @@ docker-compose run --rm store sh -c 'python manage.py test'
 - 이용자
 - email & password 로 회원가입
 
-| 내용                 | Method | URL             |
-| -------------------- | ------ | --------------- |
-| 회원가입             | POST   | api/user/create |
-| Token 인증           | POST   | api/user/token  |
-| 로그아웃(Token 삭제) | GET    | api/user/logout |
+| 내용                 | Method | URL                |
+| -------------------- | ------ | ------------------ |
+| 회원가입             | POST   | api/v1/user/create |
+| Token 인증           | POST   | api/v1/user/token  |
+| 로그아웃(Token 삭제) | GET    | api/v1/user/logout |
 
 ### 가계부 내역(Record)
 - 조회
