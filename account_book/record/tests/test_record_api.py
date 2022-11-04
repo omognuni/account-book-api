@@ -23,6 +23,7 @@ def restore_url():
 def create_record(user, **params):
     defaults = {
         'user': user,
+        'category': 'cash',
         'amount': 10000,
         'memo': 'test memo',
     }    
@@ -84,6 +85,7 @@ class PrivateAPITest(TestCase):
         '''가계부 내역 생성'''
         payload = {
             'amount': 10000,
+            'category': 'cash',
             'memo': 'test memo',
         }
         
@@ -137,6 +139,7 @@ class PrivateAPITest(TestCase):
         )
 
         payload = {
+            'category': 'card',
             'amount': 1000,
             'memo': 'test2 memo'
         }
