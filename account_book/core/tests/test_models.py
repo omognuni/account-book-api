@@ -56,8 +56,9 @@ class ModelTest(TestCase):
         '''가계부 내역 생성'''
         user = create_user()
         amount = 10000
+        category = 'cash'
         memo = 'test memo'
-        record = Record.objects.create(user=user, amount=amount, memo=memo)
+        record = Record.objects.create(user=user, category=category, amount=amount, memo=memo)
         
         self.assertEqual(record.user, user)
         self.assertEqual(record.amount, amount)
