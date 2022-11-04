@@ -18,7 +18,7 @@ docker-compose run --rm store sh -c 'python manage.py test'
 
 
 ### ERD
-
+- DB는 MySQL 5.7 사용
 <img src='/images/ERD.png'>
 
 ### User
