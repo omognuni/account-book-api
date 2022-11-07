@@ -10,9 +10,9 @@ docker-compose up --build
 docker-compose run --rm account_book sh -c 'python manage.py test'
 ```
 - 테스트 코드는 각 app 들의 tests 폴더 참조
-  - stock/core/tests
-  - stock/user/tests
-  - stock/record/tests
+  - account_book/core/tests
+  - account_book/user/tests
+  - account_book/record/tests
   
 <img src='/images/test.PNG'>
 
