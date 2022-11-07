@@ -7,7 +7,7 @@ docker-compose up --build
 ```
 - 테스트 결과 확인
 ```
-docker-compose run --rm store sh -c 'python manage.py test'
+docker-compose run --rm account_book sh -c 'python manage.py test'
 ```
 - 테스트 코드는 각 app 들의 tests 폴더 참조
   - stock/core/tests
